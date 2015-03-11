@@ -7,7 +7,7 @@ Internationalization (I18N) refers to the process of designing a software applic
 various languages and regions without engineering changes. For Web applications, this is of particular importance
 because the potential users may be worldwide.
 
-Yii offers several tools that help with internationalisation of a website such as message translation and
+Yii offers several tools that help with internationalization of a website such as message translation and
 number- and date-formatting.
 
 Locale and Language
@@ -479,6 +479,11 @@ If [[yii\i18n\MissingTranslationEvent::translatedMessage]] is set by the event h
 > and wish them to treat the missing translations in the same way, you should assign the corresponding event handler to each of them.
 
 
+### Using the `message` command <a name="message-command"></a>
+
+TDB
+
+
 Views
 -----
 
@@ -498,7 +503,7 @@ Formatting Number and Date values
 See the [data formatter section](output-formatter.md) for details.
 
 
-Setting up your PHP environment <a name="setup-environment"></a>
+Setting up your PHP environment <span id="setup-environment"></span>
 -------------------------------
 
 Yii uses the [PHP intl extension](http://php.net/manual/en/book.intl.php) to provide most of its internationalization features

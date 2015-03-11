@@ -9,7 +9,7 @@ Yii におけるファイルのアップロードは、フォームモデル、�
 --------------------------------
 
 まず最初に、ファイルのアップロードを処理するモデルを作成する必要があります。
-次の内容を持つ `models/UploadForm.php` を作って作成してください。
+次の内容を持つ `models/UploadForm.php` を作成してください。
 
 ```php
 namespace app\models;
@@ -18,7 +18,7 @@ use yii\base\Model;
 use yii\web\UploadedFile;
 
 /**
- * UploadForm がアップロードのフォームの背後にあるモデルである。
+ * UploadForm : アップロードのフォームの背後にあるモデル
  */
 class UploadForm extends Model
 {
@@ -143,19 +143,23 @@ public function rules()
 public function rules()
 {
     return [
-        [['file'], 'file', 'extensions' => 'gif, jpg',],
+        [['file'], 'file', 'extensions' => 'gif, jpg'],
     ];
 }
 ```
 
-ただし、ファイル拡張子が検証されるだけで、実際のファイルの中身は検証されないことを憶えておいてください。
-ファイルの中身も検証するためには、`FileValidator` の `mimeType` プロパティを使います。
+デフォルトでは、ファイルのコンテントの MIME タイプが指定された拡張子に対応するものであるかどうかが検証されます。
+例えば、`gif` に対しては `image/gif`、`jpg` に対しては `image/jpeg` であるかどうかが検証されます。
+
+MIME タイプの中には、`file` バリデータによって使われている PHP fileinfo 拡張では適切に検知することが出来ないものがあることに注意してください。
+例えば、`csv` ファイルは `text/csv` ではなく `text/plain` として検知されます。
+このような振る舞いを避けるために、`checkExtensionByMimeType` を `false` に設定して、MIME タイプを手動で指定することが出来ます。
 
 ```php
 public function rules()
 {
     return [
-        [['file'], 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
+        [['file'], 'file', 'checkExtensionByMimeType' => false, 'extensions' => 'csv', 'mimeTypes' => 'text/plain'],
     ];
 }
 ```
@@ -166,7 +170,7 @@ public function rules()
 
 画像をアップロードするときは、[[yii\validators\ImageValidator|ImageValidator]] が重宝するでしょう。
 このバリデータは、属性が有効な画像を受け取ったか否かを検証します。
-その画像は、[Imagine エクステンション](https://github.com/yiisoft/yii2/tree/master/extensions/imagine) によって、保存するか、または、処理することが出来ます。
+画像は、保存するか、または、[Imagine エクステンション](https://github.com/yiisoft/yii2/tree/master/extensions/imagine) によって処理することが出来ます。
 
 複数のファイルをアップロードする
 --------------------------------

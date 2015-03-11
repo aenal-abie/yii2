@@ -1,13 +1,13 @@
 データフォーマッタ
 ==================
 
-出力をフォーマットするために、Yii はデータをユーザにとってより読みやすいものにするためのフォーマッタクラスを提供しています。
+出力をフォーマットするために、Yii はフォーマッタクラスを提供して、データをユーザにとってより読みやすいものにします。
 デフォルトでは、[[yii\i18n\Formatter]] というヘルパクラスが、`formatter` という名前の [アプリケーションコンポーネント](structure-application-components.md) として登録されます。
 
 このヘルパが、日付/時刻、数字、その他のよく使われる形式について、データをローカライズしてフォーマットするための一連のメソッドを提供します。
 フォーマッタは、二つの異なる方法で使うことが出来ます。
 
-1. フォーマットメソッド (全て `as` という接頭辞を持ちます) を直接に使用する。
+1. フォーマットするメソッド (全て `as` という接頭辞を持つフォーマッタのメソッドです) を直接に使用する。
 
    ```php
    echo Yii::$app->formatter->asDate('2014-01-01', 'long'); // 出力: January 1, 2014
@@ -31,7 +31,7 @@
 
 [PHP intl 拡張](http://php.net/manual/ja/book.intl.php) がインストールされているときは、フォーマッタの全ての出力がローカライズされます。
 これのために [[yii\i18n\Formatter::locale|locale]] プロパティを構成することが出来ます。
-これが構成されていないときは、アプリケーションの [[yii\base\Application::language|language]] がロケールとして用いられます。
+[[yii\i18n\Formatter::locale|locale]] が構成されていないときは、アプリケーションの [[yii\base\Application::language|language]] がロケールとして用いられます。
 詳細は [国際化](tutorial-i18n.md) の節を参照してください。
 フォーマッタはロケールに従って、正しい日付や数字の形式を選択し、月や曜日の名称もカレントの言語に翻訳します。
 日付の形式は [[yii\i18n\Formatter::timeZone|timeZone]] によっても左右されます。
@@ -59,7 +59,7 @@ echo Yii::$app->formatter->asDate('2014-01-01'); // 出力: 2014/01/01
 > 64-bit のシステムでは、インストールされていれば、全ての場合に intl フォーマッタが使用されます。
 
 
-フォーマッタを構成する <a name="configuring-format"></a>
+フォーマッタを構成する <span id="configuring-format"></span>
 ----------------------
 
 フォーマットメソッドによって使われるデフォルトの書式は、[[yii\i18n\Formatter|フォーマッタクラス]] のプロパティを使って調整することが出来ます。
@@ -78,7 +78,7 @@ echo Yii::$app->formatter->asDate('2014-01-01'); // 出力: 2014/01/01
 ],
 ```
 
-日時の値をフォーマットする <a name="date-and-time"></a>
+日時の値をフォーマットする <span id="date-and-time"></span>
 --------------------------
 
 フォーマッタクラスは日時の値をフォーマットするさまざまなメソッドを提供しています。すなわち、
@@ -87,7 +87,7 @@ echo Yii::$app->formatter->asDate('2014-01-01'); // 出力: 2014/01/01
 - [[yii\i18n\Formatter::asTime()|time]] - 値は時刻としてフォーマットされます。例えば `14:23`。
 - [[yii\i18n\Formatter::asDatetime()|datetime]] - 値は日付および時刻としてフォーマットされます。例えば `2014/01/01 14:23`。
 - [[yii\i18n\Formatter::asTimestamp()|timestamp]] - 値は [unix タイムスタンプ](http://en.wikipedia.org/wiki/Unix_time) としてフォーマットされます。例えば `1412609982`。
-- [[yii\i18n\Formatter::asRelativeTime()|relativeTime]] - 値は、その日時と現在との間隔として、人間に分かりやすい言葉でフォーマットされます。例えば `1 時間後`。
+- [[yii\i18n\Formatter::asRelativeTime()|relativeTime]] - 値は、その日時と現在との間隔として、人間に分かりやすい言葉でフォーマットされます。例えば `1 時間前`。
 
 [[yii\i18n\Formatter::asDate()|date]]、[[yii\i18n\Formatter::asTime()|time]]、[[yii\i18n\Formatter::asDatetime()|datetime]] メソッドの日時の書式は、フォーマッタのプロパティ [[yii\i18n\Formatter::$dateFormat|$dateFormat]]、[[yii\i18n\Formatter::$timeFormat|$timeFormat]]、[[yii\i18n\Formatter::$datetimeFormat|$datetimeFormat]] を構成することで、グローバルに指定することが出来ます。
 
@@ -118,7 +118,7 @@ echo Yii::$app->formatter->asDate('now', 'yyyy-MM-dd'); // 2014-10-06
 echo Yii::$app->formatter->asDate('now', 'php:Y-m-d'); // 2014-10-06
 ```
 
-### タイムゾーン <a name="time-zones"></a>
+### タイムゾーン <span id="time-zones"></span>
 
 日時の値をフォーマットするときに、Yii はその値を [[yii\i18n\Formatter::timeZone|設定されたタイムゾーン]] に変換します。
 従って、入力値は、タイムゾーンが明示的に指定されていなければ、UTC であると見なされます。
@@ -133,14 +133,14 @@ echo Yii::$app->formatter->asTime('2014-10-06 21:41:00 JST'); // 21:41:00
 ```
 
 バージョン 2.0.1 からは、上記のコードの二番目の例のようにタイムゾーン識別子を含まないタイムスタンプに対して適用されるタイムゾーンを設定することも可能になりました。
-[[yii\i18n\Formatter::defaultTimeZone]] を設定して、データストレージに使用しているタイムゾーンに合せることが出来ます。
+[[yii\i18n\Formatter::defaultTimeZone]] を設定して、データストレージに使用しているタイムゾーンに合わせることが出来ます。
 
 > Note|注意: タイムゾーンは世界中のさまざまな政府によって作られる規則に従うものであり、頻繁に変更されるものであるため、あなたのシステムにインストールされたタイムゾーンのデータベースが最新の情報を持っていない可能性が大いにあります。
 > タイムゾーンデータベースの更新についての詳細は、[ICU マニュアル](http://userguide.icu-project.org/datetime/timezone#TOC-Updating-the-Time-Zone-Data) で参照することが出来ます。
 > [PHP 環境を国際化のために設定する](tutorial-i18n.md#setup-environment) も参照してください。
 
 
-数値をフォーマットする <a name="numbers"></a>
+数値をフォーマットする <span id="numbers"></span>
 ----------------------
 
 数値をフォーマットするために、フォーマッタクラスは次のメソッドを提供しています。
@@ -150,6 +150,8 @@ echo Yii::$app->formatter->asTime('2014-10-06 21:41:00 JST'); // 21:41:00
 - [[yii\i18n\Formatter::asPercent()|percent]] - 値は百分率としてフォーマットされます。例えば `42%`。
 - [[yii\i18n\Formatter::asScientific()|scientific]] - 値は科学記法による数値としてフォーマットされます。例えば `4.2E4`。
 - [[yii\i18n\Formatter::asCurrency()|currency]] - 値は通貨の値としてフォーマットされます。例えば `£420.00`。
+  この関数が正しく働くためには、`en_GB` や `en_US` のように、ロケールが国コードを含んでいる必要があります。
+  なぜなら、この場合は言語だけでは曖昧になるからです。
 - [[yii\i18n\Formatter::asSize()|size]] - バイト数である値が人間にとって読みやすいサイズとしてフォーマットされます。例えば `410 キビバイト`。
 - [[yii\i18n\Formatter::asShortSize()|shortSize]] - [[yii\i18n\Formatter::asSize()|size]] の短いバージョンです。例えば `410 KiB`。
 
@@ -166,15 +168,15 @@ echo Yii::$app->formatter->asTime('2014-10-06 21:41:00 JST'); // 21:41:00
 ]
 ```
 
-その他のフォーマッタ  <a name="other"></a>
+その他のフォーマッタ  <span id="other"></span>
 --------------------
 
 日付、時刻、そして、数値の他にも、Yii はさまざまな状況で使える一連のフォーマッタを提供しています。
 
-- [[yii\i18n\Formatter::asRaw()|raw]] - 値はそのまま出力されます。`null` 値が [[nullDisplay]] を使ってフォーマットされる以外は、何の効果のない擬似フォーマッタです。
+- [[yii\i18n\Formatter::asRaw()|raw]] - 値はそのまま出力されます。`null` 値が [[nullDisplay]] を使ってフォーマットされる以外は、何の効果もない擬似フォーマッタです。
 - [[yii\i18n\Formatter::asText()|text]] - 値は HTML エンコードされます。
   これは [GridView DataColumn](output-data-widgets.md#data-column) で使われるデフォルトの形式です。
-- [[yii\i18n\Formatter::asNtext()|ntext]] - 値は HTML エンコードされ、改行文字が強制改行に変換された平文テキストとしてフォーマットされ、ます。
+- [[yii\i18n\Formatter::asNtext()|ntext]] - 値は HTML エンコードされ、改行文字が強制改行に変換された平文テキストとしてフォーマットされます。
 - [[yii\i18n\Formatter::asParagraphs()|paragraphs]] - 値は HTML エンコードされ、`<p>` タグに囲まれた段落としてフォーマットされます。
 - [[yii\i18n\Formatter::asHtml()|html]] - 値は XSS 攻撃を避けるために [[HtmlPurifier]] を使って浄化されます。
   `['html', ['Attr.AllowedFrameTargets' => ['_blank']]]` のような追加のオプションを渡すことが出来ます。
@@ -185,7 +187,7 @@ echo Yii::$app->formatter->asTime('2014-10-06 21:41:00 JST'); // 21:41:00
   デフォルトでは、`true` は `Yes`、`false` は `No` とレンダリングされ、現在のアプリケーションの言語に翻訳されます。
   この振る舞いは [[yii\i18n\Formatter::booleanFormat]] プロパティを構成して調整できます。
 
-`null` 値 <a name="null-values"></a>
+`null` 値 <span id="null-values"></span>
 ---------
 
 PHP において `null` である値に対して、フォーマッタクラスは空文字ではなくプレースホルダを表示します。
